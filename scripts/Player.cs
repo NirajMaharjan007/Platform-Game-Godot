@@ -8,16 +8,21 @@ public partial class Player : CharacterBody2D
 	public const float Speed = 300.0f;
 	public const float JumpVelocity = -400.0f;
 	private AnimatedSprite2D sprite;
+	private Label label;
+	private CollisionShape2D hitbox;
 
 	public override void _Ready()
 	{
-		// Get the Sprite2D node
+		var area2D = GetNode<Area2D>("Area2D");
+		hitbox = area2D.GetNode<CollisionShape2D>("hitbox");
+
 		sprite = GetNode<AnimatedSprite2D>("AnimatedSprite2D");
+		label = GetNode<Label>("Label");
 	}
 
 	public override void _PhysicsProcess(double delta)
 	{
-		Move();
+		Update();
 		MoveAndSlide();
 	}
 
@@ -31,20 +36,31 @@ public partial class Player : CharacterBody2D
 			case PlayerState.Running:
 				sprite.Play("run");
 				break;
+			case PlayerState.Attack:
+				sprite.Play("attack");
+				break;
 		}
+
+		label.Text = state.ToString();
+
 
 		// Flip sprite based on player movement direction
 		if (Input.IsActionPressed("ui_right"))
 		{
 			sprite.FlipH = false; // Facing right
+			hitbox.Position = new Vector2(24, hitbox.Position.Y);
 		}
 		else if (Input.IsActionPressed("ui_left"))
 		{
 			sprite.FlipH = true; // Facing left
+			hitbox.Position = new Vector2(-24, hitbox.Position.Y);
 		}
+
 	}
 
-	private void Move()
+
+
+	private void Update()
 	{
 		// Handle Jump.
 		Vector2 velocity = Velocity;
@@ -60,15 +76,18 @@ public partial class Player : CharacterBody2D
 			velocity.Y = JumpVelocity;
 		}
 
+
+
 		// Get the input direction and handle the movement/deceleration.
 		// As good practice, you should replace UI actions with custom gameplay actions.
 		Vector2 direction = Input.GetVector("ui_left", "ui_right", "ui_up", "ui_down");
 
-		if (direction != Vector2.Zero) state = PlayerState.Running;
+		//STATES
+		if (direction == Vector2.Left || direction == Vector2.Right) state = PlayerState.Running;
+		else if (Input.IsActionPressed("player_attack")) state = PlayerState.Attack;
 		else state = PlayerState.Idle;
 
-		GD.Print(direction);
-
+		GD.Print(state);
 
 
 		if (state.Equals(PlayerState.Running))
@@ -77,6 +96,10 @@ public partial class Player : CharacterBody2D
 				velocity.X = direction.X * Speed;
 			else
 				velocity.X = Mathf.MoveToward(Velocity.X, 0, Speed);
+		}
+		else if (state.Equals(PlayerState.Attack))
+		{
+			velocity.X = Mathf.MoveToward(Velocity.X, 0, Speed);
 		}
 		else
 		{
