@@ -5,6 +5,8 @@
 [node name="Main" type="Node2D"]
 
 [node name="CharacterBody2D" parent="." instance=ExtResource("1_500l3")]
-position = Vector2(0, 24)
+position = Vector2(0, -24)
 
 [node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(0, -25)
+zoom = Vector2(2, 2)
