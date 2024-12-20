@@ -1,6 +1,4 @@
-# **Project Title**
-
-![Godot Engine](https://godotengine.org/themes/godotengine/assets/press/logo_svg.svg)
+# **Platformer Game from GODOT**
 
 ## **Getting Started**
 
