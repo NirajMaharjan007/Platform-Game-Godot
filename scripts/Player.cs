@@ -11,6 +11,8 @@ public partial class Player : CharacterBody2D
 	private Label label;
 	private CollisionShape2D hitbox;
 
+	private bool attack = false;
+
 	public override void _Ready()
 	{
 		var area2D = GetNode<Area2D>("Area2D");
@@ -43,6 +45,13 @@ public partial class Player : CharacterBody2D
 
 		label.Text = state.ToString();
 
+
+		if (Input.IsActionJustPressed("player_attack"))
+		{
+			attack = true;
+		}
+
+		/*  */
 
 		// Flip sprite based on player movement direction
 		if (Input.IsActionPressed("ui_right"))
@@ -77,17 +86,23 @@ public partial class Player : CharacterBody2D
 		}
 
 
-
 		// Get the input direction and handle the movement/deceleration.
 		// As good practice, you should replace UI actions with custom gameplay actions.
 		Vector2 direction = Input.GetVector("ui_left", "ui_right", "ui_up", "ui_down");
 
 		//STATES
-		if (direction == Vector2.Left || direction == Vector2.Right) state = PlayerState.Running;
-		else if (Input.IsActionPressed("player_attack")) state = PlayerState.Attack;
-		else state = PlayerState.Idle;
+		if (direction == Vector2.Left || direction == Vector2.Right)
+		{
+			state = PlayerState.Running;
+			attack = false;
+		}
 
-		GD.Print(state);
+		else if (attack)
+		{
+			state = PlayerState.Attack;
+			if (sprite.Frame == sprite.SpriteFrames.GetFrameCount("attack") - 1) attack = false;
+		}
+		else state = PlayerState.Idle;
 
 
 		if (state.Equals(PlayerState.Running))
