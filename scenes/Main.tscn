@@ -10,5 +10,8 @@
 [node name="CharacterBody2D" parent="." instance=ExtResource("1_500l3")]
 position = Vector2(-56, -40)
 
-[node name="Camera2D" type="Camera2D" parent="CharacterBody2D"]
-zoom = Vector2(2, 2)
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(248, -200)
+zoom = Vector2(1.15, 1.25)
+position_smoothing_enabled = true
+position_smoothing_speed = 6.0
