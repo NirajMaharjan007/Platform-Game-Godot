@@ -1,17 +1,22 @@
-[gd_scene load_steps=3 format=3 uid="uid://bl8c7r1efjqmk"]
+[gd_scene load_steps=4 format=3 uid="uid://bl8c7r1efjqmk"]
 
 [ext_resource type="PackedScene" uid="uid://bcfxrmijqhhvv" path="res://scenes/Player.tscn" id="1_500l3"]
 [ext_resource type="PackedScene" uid="uid://bmoy1nx0sditk" path="res://scenes/Map.tscn" id="2_v3331"]
+[ext_resource type="Script" path="res://scripts/CameraScript.cs" id="3_elj0j"]
 
 [node name="Main" type="Node2D"]
+script = ExtResource("3_elj0j")
 
 [node name="Map" parent="." instance=ExtResource("2_v3331")]
 
 [node name="CharacterBody2D" parent="." instance=ExtResource("1_500l3")]
 position = Vector2(-56, -40)
 
-[node name="Camera2D" type="Camera2D" parent="."]
-position = Vector2(248, -200)
-zoom = Vector2(1.15, 1.25)
+[node name="Camera2D" type="Camera2D" parent="CharacterBody2D"]
+position = Vector2(0, 8)
+offset = Vector2(-300, -400)
+anchor_mode = 0
+zoom = Vector2(1, 1.28)
 position_smoothing_enabled = true
 position_smoothing_speed = 6.0
+drag_horizontal_enabled = true

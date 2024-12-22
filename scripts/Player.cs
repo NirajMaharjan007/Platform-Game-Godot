@@ -9,14 +9,16 @@ public partial class Player : CharacterBody2D
 	public const float JumpVelocity = -400.0f;
 	private AnimatedSprite2D sprite;
 	private Label label;
-	private CollisionShape2D hitbox;
+	private CollisionShape2D hitbox, bottom;
 
 	private bool attack = false;
+
 
 	public override void _Ready()
 	{
 		var area2D = GetNode<Area2D>("Area2D");
 		hitbox = area2D.GetNode<CollisionShape2D>("hitbox");
+		bottom = area2D.GetNode<CollisionShape2D>("bottom");
 
 		sprite = GetNode<AnimatedSprite2D>("AnimatedSprite2D");
 		label = GetNode<Label>("Label");
@@ -52,10 +54,9 @@ public partial class Player : CharacterBody2D
 		label.Text = state.ToString();
 
 
-		if (Input.IsActionJustPressed("player_attack"))
-		{
-			attack = true;
-		}
+		if (Input.IsActionJustPressed("player_attack")) attack = true;
+
+
 
 		/*  */
 
@@ -80,15 +81,11 @@ public partial class Player : CharacterBody2D
 		Vector2 velocity = Velocity;
 
 		// Add the gravity.
-		if (!IsOnFloor())
-		{
-			velocity += GetGravity() * (float)delta;
-		}
+		if (!IsOnFloor()) velocity += GetGravity() * (float)delta;
 
-		if (Input.IsActionJustPressed("ui_accept") && IsOnFloor())
-		{
-			velocity.Y = JumpVelocity;
-		}
+
+		if (Input.IsActionJustPressed("ui_accept") && IsOnFloor()) velocity.Y = JumpVelocity;
+
 
 
 		// Get the input direction and handle the movement/deceleration.
