@@ -18,6 +18,7 @@ public partial class Player : CharacterBody2D
 	{
 		var area2D = GetNode<Area2D>("Area2D");
 		hitbox = area2D.GetNode<CollisionShape2D>("hitbox");
+
 		bottom = area2D.GetNode<CollisionShape2D>("bottom");
 
 		sprite = GetNode<AnimatedSprite2D>("AnimatedSprite2D");
@@ -56,7 +57,7 @@ public partial class Player : CharacterBody2D
 
 		if (Input.IsActionJustPressed("player_attack")) attack = true;
 
-
+		GD.Print(bottom);
 
 		/*  */
 
