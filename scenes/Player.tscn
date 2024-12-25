@@ -298,9 +298,9 @@ shape = SubResource("CapsuleShape2D_84fjx")
 
 [node name="Label" type="Label" parent="."]
 offset_left = -24.0
-offset_top = -48.0
+offset_top = 32.0
 offset_right = 24.0
-offset_bottom = -25.0
+offset_bottom = 55.0
 text = "Text"
 horizontal_alignment = 1
 vertical_alignment = 1

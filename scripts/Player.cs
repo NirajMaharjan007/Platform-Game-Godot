@@ -9,7 +9,7 @@ public partial class Player : CharacterBody2D
 	public const float JumpVelocity = -400.0f;
 	private AnimatedSprite2D sprite;
 	private Label label;
-	private CollisionShape2D hitbox, bottom;
+	private CollisionShape2D hitbox, bottom, playerBox;
 
 	private bool attack = false;
 
@@ -23,6 +23,8 @@ public partial class Player : CharacterBody2D
 
 		sprite = GetNode<AnimatedSprite2D>("AnimatedSprite2D");
 		label = GetNode<Label>("Label");
+		playerBox = GetNode<CollisionShape2D>("CollisionShape2D");
+
 	}
 
 	public override void _PhysicsProcess(double delta)
@@ -52,12 +54,11 @@ public partial class Player : CharacterBody2D
 				break;
 		}
 
-		label.Text = state.ToString();
+		label.Text = state.ToString() + "\nFLOOR:" + IsOnFloor() + "\nFlip:" + sprite.FlipH;
 
 
 		if (Input.IsActionJustPressed("player_attack")) attack = true;
 
-		GD.Print(bottom);
 
 		/*  */
 
@@ -80,26 +81,23 @@ public partial class Player : CharacterBody2D
 	private void Update(double delta)
 	{
 		Vector2 velocity = Velocity;
-
-		// Add the gravity.
-		if (!IsOnFloor()) velocity += GetGravity() * (float)delta;
-
-
-		if (Input.IsActionJustPressed("ui_accept") && IsOnFloor()) velocity.Y = JumpVelocity;
-
-
-
 		// Get the input direction and handle the movement/deceleration.
 		// As good practice, you should replace UI actions with custom gameplay actions.
 		Vector2 direction = Input.GetVector("ui_left", "ui_right", "ui_up", "ui_down");
 
+		// Add the gravity.
+		if (!IsOnFloor()) velocity += GetGravity() * (float)delta;
+
+		if (Input.IsActionJustPressed("ui_accept") && IsOnFloor()) velocity.Y = JumpVelocity;
+
+
 		// BEGIN STATES
 		if (direction == Vector2.Left || direction == Vector2.Right)
 		{
-			state = PlayerState.Running;
+			if (IsOnFloor()) state = PlayerState.Running;
+			else state = PlayerState.Jump;
 			attack = false;
 		}
-
 		else if (attack)
 		{
 			state = PlayerState.Attack;
@@ -110,7 +108,7 @@ public partial class Player : CharacterBody2D
 		// END STATES
 
 
-		if (state.Equals(PlayerState.Running)) velocity.X = direction.X * Speed;
+		if (state.Equals(PlayerState.Running) || state.Equals(PlayerState.Jump)) velocity.X = direction.X * Speed;
 		else velocity.X = Mathf.MoveToward(Velocity.X, 0, Speed);
 
 		Velocity = velocity;

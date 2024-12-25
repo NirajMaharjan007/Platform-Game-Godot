@@ -28,16 +28,9 @@ public partial class CameraScript : Node2D
 	public override void _Process(double delta)
 	{
 		if (camera != null)
-		{
-			if (target != null)
-			{
-				// Follow the target but only on the X-axis
-				camera.GlobalPosition = new Vector2(target.GlobalPosition.X, 0);
-				GD.Print("Camera: " + camera.GlobalPosition + "\nTarget" + target.Position);
-			}
-		}
+			if (target != null) camera.GlobalPosition = new Vector2(target.GlobalPosition.X, 0);
 
-		GD.Print("Collider: " + collider.GlobalPosition);
+
 		if (collider.GlobalPosition.Y < target.GlobalPosition.Y)
 		{
 			var velocity = target.Velocity;
