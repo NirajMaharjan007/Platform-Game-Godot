@@ -35,6 +35,9 @@ public partial class Player : CharacterBody2D
 
 	public override void _Process(double delta)
 	{
+		var radius = 8.00f;
+		var x = 0.00f;
+
 		switch (state)
 		{
 			case PlayerState.Idle:
@@ -42,16 +45,31 @@ public partial class Player : CharacterBody2D
 				break;
 			case PlayerState.Running:
 				sprite.Play("run");
+				radius = 14.25f;
+				if (sprite.FlipH) x = -6.00f;
+				else x = 6.00f;
 				break;
 			case PlayerState.Attack:
 				sprite.Play("attack");
 				break;
 			case PlayerState.Jump:
+				radius = 12.00f;
+				if (sprite.FlipH) x = 8.00f;
+				else x = -8.00f;
 				sprite.Play("jump");
 				break;
 			default:
+				radius = 8.00f;
+				x = 0.00f;
 				sprite.Play("idle");
 				break;
+		}
+
+		if (playerBox?.Shape is CapsuleShape2D rectangle)
+		{
+			rectangle.Radius = radius;
+			playerBox.Position = new Vector2(x, 0);
+			GD.Print(radius);
 		}
 
 		label.Text = state.ToString() + "\nFLOOR:" + IsOnFloor() + "\nFlip:" + sprite.FlipH;
