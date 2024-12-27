@@ -21,20 +21,20 @@ position = Vector2(-250, 0)
 motion_mirroring = Vector2(1, 0)
 
 [node name="Layer00009" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer"]
-position = Vector2(952, -332)
+position = Vector2(0, -172)
 scale = Vector2(2.99138, 1.01639)
 texture = ExtResource("4_wxkvt")
 
 [node name="Layer00083" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer"]
-position = Vector2(960, -916)
+position = Vector2(6.99982, -761)
 scale = Vector2(2.99704, 2.97604)
 texture = ExtResource("5_1gani")
 
 [node name="CharacterBody2D" parent="." instance=ExtResource("1_500l3")]
-position = Vector2(176, -104)
+position = Vector2(-448, -56)
 
 [node name="Camera2D" type="Camera2D" parent="CharacterBody2D"]
-offset = Vector2(0, -258)
+offset = Vector2(0, -100)
 position_smoothing_enabled = true
 position_smoothing_speed = 6.0
 drag_horizontal_enabled = true
@@ -43,9 +43,9 @@ drag_horizontal_enabled = true
 position = Vector2(760, 40)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-position = Vector2(8, 0)
+position = Vector2(-760, 128)
 shape = SubResource("RectangleShape2D_b4rjy")
 debug_color = Color(0.250983, 0.510554, 0.984479, 0.42)
 
 [node name="SpawnPoint" type="Node2D" parent="Area2D"]
-position = Vector2(-688, -288)
+position = Vector2(-1224, -96)
