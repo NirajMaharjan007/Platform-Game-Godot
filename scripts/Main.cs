@@ -1,6 +1,6 @@
 using Godot;
 
-public partial class CameraScript : Node2D
+public partial class Main : Node2D
 {
 	CollisionShape2D collider;
 	CharacterBody2D target;

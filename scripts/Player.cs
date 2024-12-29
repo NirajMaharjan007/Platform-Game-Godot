@@ -74,6 +74,7 @@ public partial class Player : CharacterBody2D
 
 
 		if (Input.IsActionJustPressed("player_attack")) attack = true;
+		if (Input.IsActionJustPressed("ui_accept")) jump = true;
 
 
 		/*  */
@@ -105,16 +106,18 @@ public partial class Player : CharacterBody2D
 		if (!IsOnFloor()) velocity += GetGravity() * (float)delta;
 
 		if (Input.IsActionJustPressed("ui_accept") && IsOnFloor())
-		{
 			velocity.Y = JumpVelocity;
-			jump = true;
-		}
+
+
+		GD.Print("Jump: " + jump);
+
 
 		// BEGIN STATES
 		if (direction == Vector2.Left || direction == Vector2.Right)
 		{
 			if (IsOnFloor()) state = PlayerState.Running;
 			else state = PlayerState.Jump;
+			jump = false;
 			attack = false;
 		}
 		else if (attack)
