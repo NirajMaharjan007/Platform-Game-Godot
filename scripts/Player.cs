@@ -11,7 +11,7 @@ public partial class Player : CharacterBody2D
 	private Label label;
 	private CollisionShape2D hitbox, bottom, playerBox;
 
-	private bool attack = false;
+	private bool attack = false, jump = false;
 
 
 	public override void _Ready()
@@ -61,7 +61,6 @@ public partial class Player : CharacterBody2D
 			default:
 				radius = 8.00f;
 				x = 0.00f;
-				sprite.Play("idle");
 				break;
 		}
 
@@ -69,7 +68,6 @@ public partial class Player : CharacterBody2D
 		{
 			rectangle.Radius = radius;
 			playerBox.Position = new Vector2(x, 0);
-			GD.Print(radius);
 		}
 
 		label.Text = state.ToString() + "\nFLOOR:" + IsOnFloor() + "\nFlip:" + sprite.FlipH;
@@ -106,8 +104,11 @@ public partial class Player : CharacterBody2D
 		// Add the gravity.
 		if (!IsOnFloor()) velocity += GetGravity() * (float)delta;
 
-		if (Input.IsActionJustPressed("ui_accept") && IsOnFloor()) velocity.Y = JumpVelocity;
-
+		if (Input.IsActionJustPressed("ui_accept") && IsOnFloor())
+		{
+			velocity.Y = JumpVelocity;
+			jump = true;
+		}
 
 		// BEGIN STATES
 		if (direction == Vector2.Left || direction == Vector2.Right)
@@ -121,8 +122,13 @@ public partial class Player : CharacterBody2D
 			state = PlayerState.Attack;
 			if (sprite.Frame == sprite.SpriteFrames.GetFrameCount("attack") - 1) attack = false;
 		}
-		else if (!IsOnFloor()) state = PlayerState.Jump;
-		else state = PlayerState.Idle;
+		else if (jump)
+		{
+			state = PlayerState.Jump;
+			if (sprite.Frame == sprite.SpriteFrames.GetFrameCount("jump") - 1 || IsOnFloor())
+				jump = false;
+		}
+		else if (velocity == Vector2.Zero) state = PlayerState.Idle;
 		// END STATES
 
 
