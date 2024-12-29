@@ -1,10 +1,11 @@
-[gd_scene load_steps=7 format=3 uid="uid://bl8c7r1efjqmk"]
+[gd_scene load_steps=8 format=3 uid="uid://bl8c7r1efjqmk"]
 
 [ext_resource type="PackedScene" uid="uid://bcfxrmijqhhvv" path="res://scenes/Player.tscn" id="1_500l3"]
 [ext_resource type="PackedScene" uid="uid://bmoy1nx0sditk" path="res://scenes/Map.tscn" id="2_v3331"]
 [ext_resource type="Script" path="res://scripts/Main.cs" id="3_elj0j"]
 [ext_resource type="Texture2D" uid="uid://dieaylqx8obs" path="res://assets/environment/Background layers/Layer_0010_1.png" id="4_wxkvt"]
 [ext_resource type="Texture2D" uid="uid://dv0x7sxjxrdlw" path="res://assets/environment/Background layers/Layer_0008_3.png" id="5_1gani"]
+[ext_resource type="PackedScene" uid="uid://bxgons8ll8urr" path="res://scenes/Hyena.tscn" id="6_x02lt"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_b4rjy"]
 size = Vector2(1538, 34)
@@ -31,11 +32,14 @@ position = Vector2(-8, -704)
 scale = Vector2(2.99704, 2.97604)
 texture = ExtResource("5_1gani")
 
+[node name="Hyena" parent="." instance=ExtResource("6_x02lt")]
+position = Vector2(-176, -16)
+
 [node name="CharacterBody2D" parent="." instance=ExtResource("1_500l3")]
 position = Vector2(-448, -48)
 
 [node name="Camera2D" type="Camera2D" parent="CharacterBody2D"]
-offset = Vector2(0, -100)
+offset = Vector2(150, -100)
 position_smoothing_enabled = true
 position_smoothing_speed = 6.0
 drag_horizontal_enabled = true

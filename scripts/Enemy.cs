@@ -10,10 +10,21 @@ public partial class Enemy : CharacterBody2D
 
 	public override void _PhysicsProcess(double delta)
 	{
+		base._PhysicsProcess(delta);
+		Update(delta);
+		MoveAndSlide();
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
 	public override void _Process(double delta)
 	{
+		base._Process(delta);
+	}
+
+	private void Update(double delta)
+	{
+		Vector2 velocity = Velocity;
+		if (!IsOnFloor()) velocity += GetGravity() * (float)delta;
+		Velocity = velocity;
 	}
 }

@@ -3,7 +3,7 @@ using Godot;
 public partial class Main : Node2D
 {
 	CollisionShape2D collider;
-	CharacterBody2D target;
+	CharacterBody2D target, enemy;
 	Camera2D camera;
 
 	Node2D spawn;
@@ -22,6 +22,8 @@ public partial class Main : Node2D
 		camera = target.GetNode<Camera2D>("Camera2D");
 		if (target == null) GD.PrintErr("Target node not found!");
 		else GD.PrintRich("Target node found!");
+
+		enemy = GetNode<CharacterBody2D>("Hyena");
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -40,6 +42,5 @@ public partial class Main : Node2D
 			collider.DebugColor = new Color(0.855f, 0.212f, 0.741f, 0.420f);
 		}
 		else if (target.IsOnFloor()) collider.DebugColor = color;
-
 	}
 }

@@ -9,7 +9,9 @@ public partial class Player : CharacterBody2D
 	public const float JumpVelocity = -400.0f;
 	private AnimatedSprite2D sprite;
 	private Label label;
-	private CollisionShape2D hitbox, bottom, playerBox;
+	private CollisionShape2D bottom, playerBox;
+	public CollisionShape2D hitbox;
+
 
 	private bool attack = false, jump = false;
 
