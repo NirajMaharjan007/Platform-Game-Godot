@@ -1,6 +1,6 @@
 [gd_scene load_steps=9 format=3 uid="uid://bxgons8ll8urr"]
 
-[ext_resource type="Script" path="res://scripts/Enemy.cs" id="1_w0nso"]
+[ext_resource type="Script" path="res://scripts/enemies/Hyena.cs" id="1_gtahw"]
 [ext_resource type="Texture2D" uid="uid://jcky8cuf4i7n" path="res://assets/enemy/2 Hyena/Hyena_idle.png" id="2_abktn"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_od34l"]
@@ -43,7 +43,7 @@ animations = [{
 size = Vector2(36, 28)
 
 [node name="Hyena" type="CharacterBody2D"]
-script = ExtResource("1_w0nso")
+script = ExtResource("1_gtahw")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(-4, -24)

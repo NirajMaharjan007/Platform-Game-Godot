@@ -1,8 +1,10 @@
 using Godot;
-using System;
 
 public partial class Enemy : CharacterBody2D
 {
+	protected enum EnemyState { Running, Idle, Jump, Hit };
+	protected float speed = 0.0f;
+
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
@@ -21,7 +23,7 @@ public partial class Enemy : CharacterBody2D
 		base._Process(delta);
 	}
 
-	private void Update(double delta)
+	protected void Update(double delta)
 	{
 		Vector2 velocity = Velocity;
 		if (!IsOnFloor()) velocity += GetGravity() * (float)delta;
